@@ -1,13 +1,12 @@
 // Copyright (c), Mysten Labs, Inc.
 // SPDX-License-Identifier: Apache-2.0
 
-import React from 'react';
+import React, { useState } from 'react';
 import { ConnectButton, useCurrentAccount } from '@mysten/dapp-kit';
 import { Box, Button, Card, Container, Flex, Grid } from '@radix-ui/themes';
 import { CreateAllowlist } from './CreateAllowlist';
 import { Allowlist } from './Allowlist';
 import WalrusUpload from './EncryptAndUpload';
-import { useState } from 'react';
 import { CreateService } from './CreateSubscriptionService';
 import FeedsToSubscribe from './SubscriptionView';
 import { Service } from './SubscriptionService';
@@ -18,38 +17,36 @@ import Feeds from './AllowlistView';
 
 function LandingPage() {
   return (
-    <Grid columns="2" gap="4">
-      <Card>
-        <Flex direction="column" gap="2" align="center" style={{ height: '100%' }}>
+    <Grid columns="2" gap="6" style={{ marginTop: '2rem' }}>
+      <Card style={{ boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', borderRadius: '12px', backgroundColor: '#f9f9f9' }}>
+        <Flex direction="column" gap="3" align="center" style={{ height: '100%' }}>
           <div style={{ textAlign: 'center' }}>
-            <h2>Allowlist Example</h2>
-            <p>
-              Shows how a creator can define an allowlist based access. The creator first creates an
-              allowlist and can add or remove users in the list. The creator can then associate
-              encrypted files to the allowlist. Only users in the allowlist have access to decrypt
-              the files.
+            <h2 style={{ color: '#2c3e50', fontWeight: '600' }}>Allowlist Example</h2>
+            <p style={{ color: '#7f8c8d' }}>
+              Shows how a creator can define an allowlist-based access. The creator can add or remove users
+              from the list and associate encrypted files. Only those on the allowlist can decrypt the files.
             </p>
           </div>
           <Link to="/allowlist-example">
-            <Button size="3">Try it</Button>
+            <Button size="4" style={{ backgroundColor: '#3498db', color: '#fff', borderRadius: '8px' }}>
+              Try it
+            </Button>
           </Link>
         </Flex>
       </Card>
-      <Card>
-        <Flex direction="column" gap="2" align="center" style={{ height: '100%' }}>
+      <Card style={{ boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', borderRadius: '12px', backgroundColor: '#f9f9f9' }}>
+        <Flex direction="column" gap="3" align="center" style={{ height: '100%' }}>
           <div style={{ textAlign: 'center' }}>
-            <h2>Subscription Example</h2>
-            <p>
-              Shows how a creator can define a subscription based access to its published files. The
-              creator defines subcription fee and how long a subscription is valid for. The creator
-              can then associate encrypted files to the service. Only users who have purchased a
-              subscription (NFT) have access to decrypt the files, along with the condition that the
-              subscription must not have expired (i.e. the subscription creation timestamp plus the
-              TTL is smaller than the current clock time).
+            <h2 style={{ color: '#2c3e50', fontWeight: '600' }}>Subscription Example</h2>
+            <p style={{ color: '#7f8c8d' }}>
+              Shows how a creator can define a subscription-based access to files. The creator sets the fee
+              and duration, and users with valid subscriptions can access the encrypted files.
             </p>
           </div>
           <Link to="/subscription-example">
-            <Button size="3">Try it</Button>
+            <Button size="4" style={{ backgroundColor: '#e74c3c', color: '#fff', borderRadius: '8px' }}>
+              Try it
+            </Button>
           </Link>
         </Flex>
       </Card>
@@ -61,31 +58,29 @@ function App() {
   const currentAccount = useCurrentAccount();
   const [recipientAllowlist, setRecipientAllowlist] = useState<string>('');
   const [capId, setCapId] = useState<string>('');
+
   return (
-    <Container>
-      <Flex position="sticky" px="4" py="2" justify="between">
-        <h1 className="text-4xl font-bold m-4 mb-8">Seal Example Apps</h1>
-        {/* <p>TODO: add seal logo</p> */}
+    <Container style={{ backgroundColor: '#ecf0f1', minHeight: '100vh', padding: '2rem' }}>
+      <Flex position="sticky" px="4" py="2" justify="between" style={{ backgroundColor: '#fff', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
+        <h1 className="text-4xl font-bold m-4 mb-8" style={{ color: '#2c3e50' }}>Seal Example Apps</h1>
         <Box>
-          <ConnectButton />
+          <ConnectButton style={{ borderRadius: '8px', padding: '8px 16px', backgroundColor: '#2ecc71', color: '#fff' }} />
         </Box>
       </Flex>
-      <Card style={{ marginBottom: '2rem' }}>
-        <p>
+      <Card style={{ marginBottom: '2rem', backgroundColor: '#fff', padding: '1.5rem', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
+        <p style={{ fontSize: '14px', color: '#7f8c8d' }}>
           1. Code is available{' '}
-          <a href="https://github.com/MystenLabs/seal/tree/main/examples">here</a>.
+          <a href="https://github.com/MystenLabs/seal/tree/main/examples" style={{ color: '#3498db' }}>here</a>.
         </p>
-        <p>
-          2. These examples are for Testnet only. Make sure you wallet is set to Testnet and has
-          some balance (can request from <a href="https://faucet.sui.io/">faucet.sui.io</a>).
+        <p style={{ fontSize: '14px', color: '#7f8c8d' }}>
+          2. These examples are for Testnet only. Make sure your wallet is set to Testnet and has some balance 
+          (can request from <a href="https://faucet.sui.io/" style={{ color: '#3498db' }}>faucet.sui.io</a>).
         </p>
-        <p>
-          3. Blobs are only stored on Walrus Testnet for 1 epoch by default, older files cannot be
-          retrieved even if you have access.
+        <p style={{ fontSize: '14px', color: '#7f8c8d' }}>
+          3. Blobs are only stored on Walrus Testnet for 1 epoch by default, older files cannot be retrieved even if you have access.
         </p>
-        <p>
-          4. Currently only image files are supported, and the UI is minimal, designed for demo
-          purposes only!
+        <p style={{ fontSize: '14px', color: '#7f8c8d' }}>
+          4. Only image files are supported, and the UI is minimal, designed for demo purposes only.
         </p>
       </Card>
       {currentAccount ? (
@@ -101,23 +96,13 @@ function App() {
                     path="/admin/allowlist/:id"
                     element={
                       <div>
-                        <Allowlist
-                          setRecipientAllowlist={setRecipientAllowlist}
-                          setCapId={setCapId}
-                        />
-                        <WalrusUpload
-                          policyObject={recipientAllowlist}
-                          cap_id={capId}
-                          moduleName="allowlist"
-                        />
+                        <Allowlist setRecipientAllowlist={setRecipientAllowlist} setCapId={setCapId} />
+                        <WalrusUpload policyObject={recipientAllowlist} cap_id={capId} moduleName="allowlist" />
                       </div>
                     }
                   />
                   <Route path="/admin/allowlists" element={<AllAllowlist />} />
-                  <Route
-                    path="/view/allowlist/:id"
-                    element={<Feeds suiAddress={currentAccount.address} />}
-                  />
+                  <Route path="/view/allowlist/:id" element={<Feeds suiAddress={currentAccount.address} />} />
                 </Routes>
               }
             />
@@ -130,23 +115,13 @@ function App() {
                     path="/admin/service/:id"
                     element={
                       <div>
-                        <Service
-                          setRecipientAllowlist={setRecipientAllowlist}
-                          setCapId={setCapId}
-                        />
-                        <WalrusUpload
-                          policyObject={recipientAllowlist}
-                          cap_id={capId}
-                          moduleName="subscription"
-                        />
+                        <Service setRecipientAllowlist={setRecipientAllowlist} setCapId={setCapId} />
+                        <WalrusUpload policyObject={recipientAllowlist} cap_id={capId} moduleName="subscription" />
                       </div>
                     }
                   />
                   <Route path="/admin/services" element={<AllServices />} />
-                  <Route
-                    path="/view/service/:id"
-                    element={<FeedsToSubscribe suiAddress={currentAccount.address} />}
-                  />
+                  <Route path="/view/service/:id" element={<FeedsToSubscribe suiAddress={currentAccount.address} />} />
                 </Routes>
               }
             />
